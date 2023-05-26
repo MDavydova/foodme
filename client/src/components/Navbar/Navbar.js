@@ -1,10 +1,15 @@
 import { CartIcon } from "../../icons";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { getTotal } from "../../redux/features/cartSlice";
 import "../Navbar/Navbar.scss";
 
 const Navbar = () => {
-  //const { amount } = useSelector((store) => store.cart);
+  const { total } = useSelector((state) => ({
+    ...state.cart,
+  }));
+
   return (
     <>
       <nav className="nav">
@@ -21,7 +26,7 @@ const Navbar = () => {
             <li className="nav__cart-box nav__item">
               <Link to="/cart">
                 <CartIcon />
-                <span className="nav__cart-amount">5</span>
+                <span className="nav__cart-amount">{total}</span>
               </Link>
             </li>
           </ul>

@@ -7,4 +7,8 @@ export default configureStore({
   reducer: {
     shops: ShopsReducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });

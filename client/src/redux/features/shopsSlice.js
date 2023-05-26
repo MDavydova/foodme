@@ -11,8 +11,13 @@ const shopsSlice = createSlice({
   initialState: {
     loading: true,
     shops: [],
+    chosenShop: "",
   },
-  reducers: {},
+  reducers: {
+    defineShop(state, action) {
+      state.shops.filter((shop) => shop.name === action.payload);
+    },
+  },
   extraReducers: {
     [getShops.pending]: (state, action) => {
       state.loading = true;
@@ -26,5 +31,7 @@ const shopsSlice = createSlice({
     },
   },
 });
+
+export const { defineShop } = shopsSlice.actions;
 
 export default shopsSlice.reducer;

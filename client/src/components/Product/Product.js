@@ -1,7 +1,28 @@
-import React from "react";
+import { React, useState } from "react";
 import "./Product.scss";
+import { defineShop } from "../../redux/features/shopsSlice";
+import { useDispatch, useSelector } from "react-redux";
 
-function Product({ image, description, price, name, className }) {
+function Product({ image, description, price, name, shopName, className }) {
+  const [productAmount, setProductAmount] = useState(0);
+
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+
+  const dispatch = useDispatch();
+
+  const incrementHandler = () => {
+    setProductAmount(productAmount + 1);
+    if (productAmount >= 0) setButtonDisabled(false);
+
+    dispatch(defineShop(shopName));
+  };
+
+  const dicrementHandler = () => {
+    setProductAmount(productAmount - 1);
+    if (productAmount === 1) setButtonDisabled(true);
+    dispatch(defineShop(shopName));
+  };
+
   return (
     <li className={className}>
       <div className="product__wrapper">
@@ -14,8 +35,11 @@ function Product({ image, description, price, name, className }) {
             <img src={image} alt="image" />
           </div>
           <div className="product__buttons flex">
-            <button>+</button>
-            <button>-</button>
+            <button onClick={incrementHandler}>+</button>
+            <input readonly value={productAmount} />
+            <button disabled={buttonDisabled} onClick={dicrementHandler}>
+              -
+            </button>
           </div>
         </div>
 

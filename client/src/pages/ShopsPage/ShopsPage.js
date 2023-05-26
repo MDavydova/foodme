@@ -5,7 +5,10 @@ import { getShops } from "../../redux/features/shopsSlice";
 import Shop from "../../components/Shop/Shop";
 
 function ShopsPage({ pageClassName }) {
-  const { shops, loading } = useSelector((state) => ({ ...state.shops }));
+  const { shops, loading } = useSelector((state) => ({
+    ...state.shops,
+  }));
+
   const dispatch = useDispatch();
 
   useEffect(() => {

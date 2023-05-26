@@ -5,7 +5,7 @@ import { getShops } from "../../redux/features/shopsSlice";
 import Shop from "../../components/Shop/Shop";
 
 function ShopsPage({ pageClassName }) {
-  const { shops, loading } = useSelector((state) => ({
+  const { shops } = useSelector((state) => ({
     ...state.shops,
   }));
 

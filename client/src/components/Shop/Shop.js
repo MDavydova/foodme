@@ -5,17 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import "./Shop.scss";
 
 function Shop({ shopName, shopLocation, range, className }) {
+  const [isShopChosen, setShopChosen] = useState(false);
   const { chosenShop } = useSelector((state) => ({
     ...state.shops,
   }));
 
-  const [isShopChosen, setShopChosen] = useState(false);
-
   useEffect(() => {
-    if (chosenShop === shopName) setShopChosen(true);
+    if (chosenShop != "")
+      chosenShop === shopName ? setShopChosen(false) : setShopChosen(true);
   }, [chosenShop]);
-
-  console.log(chosenShop);
 
   const productsList = range.map((product, index) => (
     <Product
@@ -25,6 +23,7 @@ function Shop({ shopName, shopLocation, range, className }) {
       className="shop__products-item"
     />
   ));
+
   return (
     <li className={`${className} ${isShopChosen ? "disabled" : ""}`}>
       <div className="shop__wrapper">

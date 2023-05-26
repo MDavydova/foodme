@@ -13,7 +13,6 @@ function Product({ image, description, price, name, shopName, className }) {
   const incrementHandler = () => {
     setProductAmount(productAmount + 1);
     if (productAmount >= 0) setButtonDisabled(false);
-
     dispatch(defineShop(shopName));
   };
 

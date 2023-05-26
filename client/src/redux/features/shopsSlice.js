@@ -15,7 +15,11 @@ const shopsSlice = createSlice({
   },
   reducers: {
     defineShop(state, action) {
-      state.shops.filter((shop) => shop.name === action.payload);
+      const shop = state.shops.find((shop) => shop.shopName === action.payload);
+      state.chosenShop = shop.shopName;
+    },
+    undefineShop(state) {
+      state.chosenShop = "";
     },
   },
   extraReducers: {
@@ -32,6 +36,6 @@ const shopsSlice = createSlice({
   },
 });
 
-export const { defineShop } = shopsSlice.actions;
+export const { defineShop, undefineShop } = shopsSlice.actions;
 
 export default shopsSlice.reducer;

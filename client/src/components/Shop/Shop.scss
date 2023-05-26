@@ -10,4 +10,21 @@
     font-size: 24px;
     margin: 0 0 32px;
   }
+  &__products {
+    &-item {
+      border-bottom: 1px solid black;
+
+      &:last-child {
+        border: none;
+      }
+    }
+
+    &-list {
+      display: flex;
+      list-style: none;
+      flex-direction: column;
+      gap: 16px;
+      padding: 0;
+    }
+  }
 }

@@ -1,0 +1,33 @@
+.product {
+  &__image {
+    max-width: 250px;
+    border-radius: 8px;
+
+    img {
+      width: 100%;
+      object-fit: fill;
+    }
+  }
+
+  &__title {
+    text-transform: capitalize;
+    font-size: 18px;
+  }
+
+  &__buttons {
+    gap: 15px;
+
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    button {
+      width: 30px;
+      background-color: transparent;
+      border: 1px solid black;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  }
+}

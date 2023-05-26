@@ -4,6 +4,16 @@ import cors from "cors";
 import morgan from "morgan";
 import orderRouter from "./routes/orders.js";
 import dotenv from "dotenv";
+import multer from "multer";
+const upload = multer();
+
+import path from "path";
+
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+
+const __dirname = path.dirname(__filename);
 
 const app = express();
 dotenv.config();
@@ -11,12 +21,12 @@ dotenv.config();
 app.use(morgan("dev"));
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
+express.static(path.join(__dirname, "public"));
 app.use(cors());
+app.use("/order", orderRouter); // http://localhost:5000/order
 
-app.use("/order", orderRouter); // http://localhost:5000/order/signup
-
-app.get("/", (req, res) => {
-  res.send("Welcome to tour API");
+app.get("/shops", upload.none(), (req, res) => {
+  res.sendFile(path.join(__dirname, "public/data.js"));
 });
 
 const port = process.env.PORT || 5000;

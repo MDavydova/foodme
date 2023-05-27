@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from "react";
 import Product from "../Product/Product";
 import { useDispatch, useSelector } from "react-redux";
+import { undefineShop } from "../../redux/features/shopsSlice";
 
 import "./Shop.scss";
 
@@ -9,6 +10,17 @@ function Shop({ shopName, shopLocation, range, className }) {
   const { chosenShop } = useSelector((state) => ({
     ...state.shops,
   }));
+
+  const { total } = useSelector((state) => ({
+    ...state.cart,
+  }));
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (total === 0) dispatch(undefineShop());
+    setShopChosen(false);
+  }, [total]);
 
   useEffect(() => {
     if (chosenShop != "")

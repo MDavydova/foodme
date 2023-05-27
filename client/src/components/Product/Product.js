@@ -50,16 +50,24 @@ function Product({
         .find((shop) => shop.shopName === chosenShop)
         .range.find((product) => product.name === name).price;
 
+  let priceForCart;
+
+  if (shop) {
+    priceForCart = price;
+  } else {
+    priceForCart = priceToShow;
+  }
+
   const incrementHandler = () => {
     productAmount >= 0 && setButtonDisabled(false);
     shop && dispatch(defineShop(shopName));
-    shop && dispatch(addProduct({ name, price, shopName }));
+    dispatch(addProduct({ name, priceForCart, shopName }));
   };
 
   const decrementHandler = () => {
     productAmount === 1 && setButtonDisabled(true);
     shop && dispatch(defineShop(shopName));
-    dispatch(removeProduct({ name, price }));
+    dispatch(removeProduct({ name, priceForCart }));
   };
 
   return (

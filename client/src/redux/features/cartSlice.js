@@ -18,14 +18,14 @@ const cartSlice = createSlice({
       const product = {
         name: action.payload.name,
         amount: 1,
-        price: action.payload.price,
+        price: action.payload.priceForCart,
         shopName: action.payload.shopName,
       };
       /* eslint-disable */
       productIndex === -1
         ? state.products.push(product)
         : (state.products[productIndex].amount++,
-          (state.products[productIndex].price += action.payload.price));
+          (state.products[productIndex].price += action.payload.priceForCart));
     },
     removeProduct(state, action) {
       const productIndex = state.products.findIndex(
@@ -35,7 +35,7 @@ const cartSlice = createSlice({
       state.products[productIndex].amount === 0
         ? state.products.splice(productIndex, 1)
         : (state.products[productIndex].amount--,
-          (state.products[productIndex].price -= action.payload.price));
+          (state.products[productIndex].price -= action.payload.priceForCart));
     },
 
     updateTotalAmount(state) {

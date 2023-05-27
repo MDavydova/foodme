@@ -4,7 +4,8 @@ import { defineShop } from "../../redux/features/shopsSlice";
 import {
   addProduct,
   removeProduct,
-  updateTotal,
+  updateTotalAmount,
+  updateTotalCost,
 } from "../../redux/features/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -19,16 +20,18 @@ function Product({ image, description, price, name, shopName, className }) {
     setProductAmount(productAmount + 1);
     if (productAmount >= 0) setButtonDisabled(false);
     dispatch(defineShop(shopName));
-    dispatch(addProduct(name));
-    dispatch(updateTotal());
+    dispatch(addProduct({ name, price }));
+    dispatch(updateTotalAmount());
+    dispatch(updateTotalCost());
   };
 
   const dicrementHandler = () => {
     setProductAmount(productAmount - 1);
     if (productAmount === 1) setButtonDisabled(true);
     dispatch(defineShop(shopName));
-    dispatch(removeProduct(name));
-    dispatch(updateTotal());
+    dispatch(removeProduct({ name, price }));
+    dispatch(updateTotalAmount());
+    dispatch(updateTotalCost());
   };
 
   return (
@@ -44,7 +47,7 @@ function Product({ image, description, price, name, shopName, className }) {
           </div>
           <div className="product__buttons flex">
             <button onClick={incrementHandler}>+</button>
-            <input readonly value={productAmount} />
+            <input readOnly value={productAmount} />
             <button disabled={buttonDisabled} onClick={dicrementHandler}>
               -
             </button>

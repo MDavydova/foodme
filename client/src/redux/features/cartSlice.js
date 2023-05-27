@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   products: [],
-  total: 0,
+  totalAmount: 0,
+  totalCost: 0,
 };
 
 const cartSlice = createSlice({
@@ -11,32 +12,44 @@ const cartSlice = createSlice({
   reducers: {
     addProduct(state, action) {
       const productIndex = state.products.findIndex(
-        (product) => product.name === action.payload
+        (product) => product.name === action.payload.name
       );
 
       const product = {
-        name: action.payload,
-        amount: 0,
+        name: action.payload.name,
+        amount: 1,
+        price: action.payload.price,
       };
-
+      /* eslint-disable */
       productIndex === -1
         ? state.products.push(product)
-        : state.products[productIndex].amount++;
+        : (state.products[productIndex].amount++,
+          (state.products[productIndex].price += action.payload.price));
     },
     removeProduct(state, action) {
       const productIndex = state.products.findIndex(
-        (product) => product.name === action.payload
+        (product) => product.name === action.payload.name
       );
-      state.products[productIndex].amount--;
+
+      state.products[productIndex].amount === 1
+        ? state.products.splice(productIndex, 1)
+        : (state.products[productIndex].amount--,
+          (state.products[productIndex].price -= action.payload.price));
     },
-    updateTotal(state) {
-      const totalAmount = state.products.reduce((acc, product) => {
-        return acc.amount + product.amount;
-      });
-      state.total = totalAmount.amount + 1;
+    updateTotalAmount(state) {
+      state.totalAmount = state.products
+        .map((product) => product.amount)
+        .reduce((a, b) => a + b);
+    },
+    /* eslint-enable */
+    updateTotalCost(state, action) {
+      state.totalCost = state.products
+        .map((product) => product.price)
+        .reduce((a, b) => a + b);
     },
   },
 });
 
-export const { addProduct, removeProduct, updateTotal } = cartSlice.actions;
+export const { addProduct, removeProduct, updateTotalAmount, updateTotalCost } =
+  cartSlice.actions;
 export default cartSlice.reducer;

@@ -6,7 +6,7 @@ import { getTotal } from "../../redux/features/cartSlice";
 import "../Navbar/Navbar.scss";
 
 const Navbar = () => {
-  const { total } = useSelector((state) => ({
+  const { totalAmount, totalCost } = useSelector((state) => ({
     ...state.cart,
   }));
 
@@ -26,7 +26,8 @@ const Navbar = () => {
             <li className="nav__cart-box nav__item">
               <Link to="/cart">
                 <CartIcon />
-                <span className="nav__cart-amount">{total}</span>
+                <span className="nav__cart-amount">{totalAmount}</span>
+                <span className="nav__cart-cost">${totalCost}</span>
               </Link>
             </li>
           </ul>

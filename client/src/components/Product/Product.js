@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import "./Product.scss";
 import { defineShop } from "../../redux/features/shopsSlice";
 import {
@@ -10,14 +10,23 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 function Product({ image, description, price, name, shopName, className }) {
+  const { products } = useSelector((state) => ({
+    ...state.cart,
+  }));
+
   const [productAmount, setProductAmount] = useState(0);
 
   const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    const productIndex = products.findIndex((product) => product.name === name);
+
+    setProductAmount(productIndex === -1 ? 0 : products[productIndex].amount);
+  }, [products]);
+
   const incrementHandler = () => {
-    setProductAmount(productAmount + 1);
     if (productAmount >= 0) setButtonDisabled(false);
     dispatch(defineShop(shopName));
     dispatch(addProduct({ name, price }));
@@ -26,7 +35,6 @@ function Product({ image, description, price, name, shopName, className }) {
   };
 
   const dicrementHandler = () => {
-    setProductAmount(productAmount - 1);
     if (productAmount === 1) setButtonDisabled(true);
     dispatch(defineShop(shopName));
     dispatch(removeProduct({ name, price }));

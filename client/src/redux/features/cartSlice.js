@@ -36,6 +36,7 @@ const cartSlice = createSlice({
         : (state.products[productIndex].amount--,
           (state.products[productIndex].price -= action.payload.price));
     },
+
     updateTotalAmount(state) {
       state.totalAmount = state.products
         .map((product) => product.amount)
@@ -47,9 +48,21 @@ const cartSlice = createSlice({
         .map((product) => product.price)
         .reduce((a, b) => a + b);
     },
+    removeProductTotally(state, action) {
+      const productIndex = state.products.findIndex(
+        (product) => product.name === action.payload.name
+      );
+
+      state.products.splice(productIndex, 1);
+    },
   },
 });
 
-export const { addProduct, removeProduct, updateTotalAmount, updateTotalCost } =
-  cartSlice.actions;
+export const {
+  addProduct,
+  removeProduct,
+  updateTotalAmount,
+  updateTotalCost,
+  removeProductTotally,
+} = cartSlice.actions;
 export default cartSlice.reducer;

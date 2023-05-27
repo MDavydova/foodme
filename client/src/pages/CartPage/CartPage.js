@@ -1,22 +1,32 @@
 import "../CartPage/CartPage.scss";
-
-//const navigate = useNavigate();
+import CheckoutForm from "../../components/CheckoutForm/CheckoutForm";
+import CheckoutFoodBox from "../../components/CheckoutFoodBox/CheckoutFoodBox";
 
 import React from "react";
 
 function CartPage({ pageClassName }) {
-  /*const submitHandler = async (event) => {
-    event.preventDefault();
-
-    try {
-      await submitForm();
-      navigate("/");
-    } catch (error) {
-      navigate("/error", { state: { message: "Failed to submit form" } }); // Pass optional second argument
-    }
-  };
-  */
-  return <div>CartPage</div>;
+  return (
+    <main className={pageClassName}>
+      <div className="container">
+        <h1>Checkout</h1>
+        <div className="flex cart__wrapper">
+          <div className="cart__col">
+            <div className="cart__box">
+              <h2>Food Info</h2>
+              <CheckoutFoodBox />
+            </div>
+            <div className="cart__box">
+              <h2>Shop Info</h2>
+            </div>
+          </div>
+          <div className="cart__col">
+            <h2>Your Info</h2>
+            <CheckoutForm />
+          </div>
+        </div>
+      </div>
+    </main>
+  );
 }
 
 export default CartPage;

@@ -16,6 +16,12 @@
 
   &__buttons {
     gap: 15px;
+    margin-left: 10px;
+    input:read-only {
+      width: 10px;
+      text-align: center;
+      border: none;
+    }
 
     @media screen and (max-width: 768px) {
       flex-direction: column;

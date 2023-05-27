@@ -33,6 +33,7 @@ function Shop({ shopName, shopLocation, range, className }) {
       {...product}
       shopName={shopName}
       className="shop__products-item"
+      shop={true}
     />
   ));
 

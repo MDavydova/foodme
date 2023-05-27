@@ -10,14 +10,22 @@ import {
 } from "../../redux/features/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
-function Product({ image, description, price, name, shopName, className }) {
+function Product({
+  image,
+  description,
+  price,
+  name,
+  shopName,
+  className,
+  shop,
+}) {
   const { products } = useSelector((state) => ({
     ...state.cart,
   }));
 
   const [productAmount, setProductAmount] = useState(0);
 
-  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [buttonDisabled, setButtonDisabled] = useState(shop ? true : false);
 
   const dispatch = useDispatch();
 
@@ -34,13 +42,13 @@ function Product({ image, description, price, name, shopName, className }) {
 
   const incrementHandler = () => {
     productAmount >= 0 && setButtonDisabled(false);
-    dispatch(defineShop(shopName));
+    shopName && dispatch(defineShop(shopName));
     dispatch(addProduct({ name, price }));
   };
 
   const decrementHandler = () => {
     productAmount === 1 && setButtonDisabled(true);
-    dispatch(defineShop(shopName));
+    shopName && dispatch(defineShop(shopName));
     dispatch(removeProduct({ name, price }));
   };
 
@@ -49,12 +57,14 @@ function Product({ image, description, price, name, shopName, className }) {
       <div className="product__wrapper">
         <div className="flex align-center justify-between mb-32">
           <strong className="product__title">{name}</strong>
-          <span className="product__price">${price}</span>
+          {shop && <span className="product__price">${price}</span>}
         </div>
         <div className="flex align-center justify-between mb-32">
-          <div className="product__image">
-            <img src={image} alt="image" />
-          </div>
+          {shop && (
+            <div className="product__image">
+              <img src={image} alt="image" />
+            </div>
+          )}
           <ProductButtonBox
             incrementHandler={incrementHandler}
             decrementHandler={decrementHandler}
@@ -63,7 +73,7 @@ function Product({ image, description, price, name, shopName, className }) {
           />
         </div>
 
-        <p className="product__description">{description}</p>
+        {shop && <p className="product__description">{description}</p>}
       </div>
     </li>
   );

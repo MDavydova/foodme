@@ -19,6 +19,7 @@ const cartSlice = createSlice({
         name: action.payload.name,
         amount: 1,
         price: action.payload.price,
+        shopName: action.payload.shopName,
       };
       /* eslint-disable */
       productIndex === -1

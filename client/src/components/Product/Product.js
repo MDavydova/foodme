@@ -23,6 +23,10 @@ function Product({
     ...state.cart,
   }));
 
+  const { shops, chosenShop } = useSelector((state) => ({
+    ...state.shops,
+  }));
+
   const [productAmount, setProductAmount] = useState(0);
 
   const [buttonDisabled, setButtonDisabled] = useState(shop ? true : false);
@@ -40,15 +44,21 @@ function Product({
     }
   }, [products]);
 
+  let priceToShow = shop
+    ? price
+    : shops
+        .find((shop) => shop.shopName === chosenShop)
+        .range.find((product) => product.name === name).price;
+
   const incrementHandler = () => {
     productAmount >= 0 && setButtonDisabled(false);
-    shopName && dispatch(defineShop(shopName));
-    dispatch(addProduct({ name, price }));
+    shop && dispatch(defineShop(shopName));
+    shop && dispatch(addProduct({ name, price, shopName }));
   };
 
   const decrementHandler = () => {
     productAmount === 1 && setButtonDisabled(true);
-    shopName && dispatch(defineShop(shopName));
+    shop && dispatch(defineShop(shopName));
     dispatch(removeProduct({ name, price }));
   };
 
@@ -57,7 +67,7 @@ function Product({
       <div className="product__wrapper">
         <div className="flex align-center justify-between mb-32">
           <strong className="product__title">{name}</strong>
-          {shop && <span className="product__price">${price}</span>}
+          <span className="product__price">${priceToShow}</span>
         </div>
         <div className="flex align-center justify-between mb-32">
           {shop && (

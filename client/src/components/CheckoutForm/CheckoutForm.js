@@ -5,7 +5,6 @@ import React from "react";
 function CheckoutForm() {
   return (
     <div>
-      <h1>Anywhere in your app!</h1>
       <Formik
         initialValues={{ email: "", name: "" }}
         validate={(values) => {
@@ -39,6 +38,7 @@ function CheckoutForm() {
             <input
               type="email"
               name="email"
+              placeholder="your email"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.email}
@@ -47,6 +47,7 @@ function CheckoutForm() {
             <input
               type="text"
               name="name"
+              placeholder="your name"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.name}
@@ -55,6 +56,7 @@ function CheckoutForm() {
             <input
               type="tel"
               name="phone"
+              placeholder="your phone"
               onChange={handleChange}
               onBlur={handleBlur}
               value={values.phone}

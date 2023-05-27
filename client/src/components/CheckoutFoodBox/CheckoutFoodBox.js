@@ -2,14 +2,14 @@ import React from "react";
 
 import Product from "../Product/Product";
 
+import "../CheckoutFoodBox/CheckoutFoodBox.scss";
+
 import { useDispatch, useSelector } from "react-redux";
 
 function CheckoutFoodBox() {
-  const { products, total } = useSelector((state) => ({
+  const { products, totalCost } = useSelector((state) => ({
     ...state.cart,
   }));
-
-  const dispatch = useDispatch();
 
   const productsList = products.map((product, index) => (
     <Product
@@ -26,7 +26,7 @@ function CheckoutFoodBox() {
         {productsList}
       </ul>
 
-      <span className="checkout__total-price">Total: ${total}</span>
+      <span className="checkout__total-price">Total: ${totalCost}</span>
     </div>
   );
 }

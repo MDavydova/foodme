@@ -31,7 +31,7 @@ const cartSlice = createSlice({
         (product) => product.name === action.payload.name
       );
 
-      state.products[productIndex].amount === 1
+      state.products[productIndex].amount === 0
         ? state.products.splice(productIndex, 1)
         : (state.products[productIndex].amount--,
           (state.products[productIndex].price -= action.payload.price));

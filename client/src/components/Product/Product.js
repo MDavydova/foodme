@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from "react";
+import ProductButtonBox from "../ProductButtonBox";
 import "./Product.scss";
 import { defineShop } from "../../redux/features/shopsSlice";
 import {
@@ -24,22 +25,23 @@ function Product({ image, description, price, name, shopName, className }) {
     const productIndex = products.findIndex((product) => product.name === name);
 
     setProductAmount(productIndex === -1 ? 0 : products[productIndex].amount);
+
+    if (products.length > 0) {
+      dispatch(updateTotalAmount());
+      dispatch(updateTotalCost());
+    }
   }, [products]);
 
   const incrementHandler = () => {
-    if (productAmount >= 0) setButtonDisabled(false);
+    productAmount >= 0 && setButtonDisabled(false);
     dispatch(defineShop(shopName));
     dispatch(addProduct({ name, price }));
-    dispatch(updateTotalAmount());
-    dispatch(updateTotalCost());
   };
 
-  const dicrementHandler = () => {
-    if (productAmount === 1) setButtonDisabled(true);
+  const decrementHandler = () => {
+    productAmount === 1 && setButtonDisabled(true);
     dispatch(defineShop(shopName));
     dispatch(removeProduct({ name, price }));
-    dispatch(updateTotalAmount());
-    dispatch(updateTotalCost());
   };
 
   return (
@@ -53,13 +55,12 @@ function Product({ image, description, price, name, shopName, className }) {
           <div className="product__image">
             <img src={image} alt="image" />
           </div>
-          <div className="product__buttons flex">
-            <button onClick={incrementHandler}>+</button>
-            <input readOnly value={productAmount} />
-            <button disabled={buttonDisabled} onClick={dicrementHandler}>
-              -
-            </button>
-          </div>
+          <ProductButtonBox
+            incrementHandler={incrementHandler}
+            decrementHandler={decrementHandler}
+            productAmount={productAmount}
+            buttonDisabled={buttonDisabled}
+          />
         </div>
 
         <p className="product__description">{description}</p>

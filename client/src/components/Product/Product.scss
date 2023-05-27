@@ -9,6 +9,16 @@
     }
   }
 
+  &__wrapper {
+    button {
+      width: 30px;
+      background-color: transparent;
+      border: 1px solid black;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  }
+
   &__title {
     text-transform: capitalize;
     font-size: 18px;
@@ -27,13 +37,9 @@
       flex-direction: column;
       gap: 5px;
     }
+  }
 
-    button {
-      width: 30px;
-      background-color: transparent;
-      border: 1px solid black;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+  &__remove-button {
+    color: red;
   }
 }

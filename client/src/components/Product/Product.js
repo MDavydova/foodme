@@ -7,6 +7,7 @@ import {
   removeProduct,
   updateTotalAmount,
   updateTotalCost,
+  removeProductTotally,
 } from "../../redux/features/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -70,6 +71,10 @@ function Product({
     dispatch(removeProduct({ name, priceForCart }));
   };
 
+  const removeProductHandler = () => {
+    dispatch(removeProductTotally({ name }));
+  };
+
   return (
     <li className={className}>
       <div className="product__wrapper">
@@ -89,6 +94,14 @@ function Product({
             productAmount={productAmount}
             buttonDisabled={buttonDisabled}
           />
+          {!shop && (
+            <button
+              className="product__remove-button"
+              onClick={removeProductHandler}
+            >
+              X
+            </button>
+          )}
         </div>
 
         {shop && <p className="product__description">{description}</p>}

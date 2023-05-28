@@ -96,6 +96,7 @@ function CheckoutForm() {
               resetForm();
               dispatch(removeProductsTotally());
               setSubmitting(false);
+              navigate("/order");
             }
           }, 500);
         }}
@@ -208,11 +209,3 @@ function CheckoutForm() {
 }
 
 export default CheckoutForm;
-
-/*
-
-
-shopLocation
-orderedItems:  productQuantity: productName
-
-*/

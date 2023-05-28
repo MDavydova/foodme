@@ -51,10 +51,9 @@ export const getOrderByEmail = createAsyncThunk(
 );
 export const getOrderById = createAsyncThunk(
   "order/getOrderById",
-  async ({ id }, { rejectWithValue }) => {
+  async (obj, { rejectWithValue }) => {
     try {
-      const response = await api.getOrderById(id);
-
+      const response = await api.getOrderById(obj);
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -69,16 +68,11 @@ const orderSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
-    [createOrder.pending]: (state, action) => {
-      state.loading = true;
-    },
     [createOrder.fulfilled]: (state, action) => {
-      state.loading = false;
       state.order = action.payload;
     },
-    [createOrder.rejected]: (state, action) => {
-      state.loading = false;
-      state.error = action.payload.message;
+    [getOrderById.fulfilled]: (state, action) => {
+      state.order = action.payload;
     },
   },
 });

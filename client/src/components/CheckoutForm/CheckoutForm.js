@@ -2,6 +2,11 @@ import "./CheckoutForm.scss";
 import React from "react";
 import * as yup from "yup";
 import "yup-phone";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { createOrder } from "../../redux/features/orderSlice";
+import { removeProductsTotally } from "../../redux/features/cartSlice";
+
 import {
   Button,
   Input,
@@ -36,6 +41,17 @@ const formSchema = yup.object().shape({
 });
 
 function CheckoutForm() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { products, totalCost } = useSelector((state) => ({
+    ...state.cart,
+  }));
+
+  const { chosenShop, chosenShopLocation } = useSelector((state) => ({
+    ...state.shops,
+  }));
+
   return (
     <div>
       <Formik
@@ -49,11 +65,38 @@ function CheckoutForm() {
         onSubmit={(values, { setSubmitting, resetForm }) => {
           setSubmitting(true);
 
-          // Simulate submitting to database, shows us values submitted, resets form
+          const maxNum = 999;
+
+          const id = String(Math.floor(Math.random() * maxNum));
+
+          values["id"] = id;
+
+          values["shop"] = chosenShop;
+
+          values["cost"] = totalCost;
+
+          values["shopLocation"] = chosenShopLocation;
+
+          const orderedProducts = products.map((product) => {
+            return {
+              productName: product.name,
+              productQuantity: product.amount,
+              productPrice: product.price,
+            };
+          });
+
+          values["orderedItems"] = orderedProducts;
+
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            resetForm();
-            setSubmitting(false);
+            if (products.length === 0) {
+              alert("Please select products before submitting order form");
+              navigate("/");
+            } else {
+              dispatch(createOrder(values));
+              resetForm();
+              dispatch(removeProductsTotally());
+              setSubmitting(false);
+            }
           }, 500);
         }}
       >
@@ -67,7 +110,6 @@ function CheckoutForm() {
           isSubmitting,
         }) => (
           <Form onSubmit={handleSubmit}>
-            {console.log(values)}
             <FormGroup row>
               <Col>
                 <InputGroup className="mb-32">
@@ -166,3 +208,11 @@ function CheckoutForm() {
 }
 
 export default CheckoutForm;
+
+/*
+
+
+shopLocation
+orderedItems:  productQuantity: productName
+
+*/

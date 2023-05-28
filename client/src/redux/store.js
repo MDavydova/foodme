@@ -8,6 +8,7 @@ export default configureStore({
   reducer: {
     shops: ShopsReducer,
     cart: CartReducer,
+    order: OrderReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

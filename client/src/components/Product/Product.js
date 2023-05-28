@@ -60,7 +60,6 @@ function Product({
     priceForCart = priceToShow;
     const product = products.find((product) => product.name === name);
     productCost = product.amount * priceForCart;
-    console.log(productCost);
   }
 
   const incrementHandler = () => {

@@ -25,7 +25,6 @@ export const deleteOrder = createAsyncThunk(
     }
   }
 );
-
 export const getOrderByPhone = createAsyncThunk(
   "order/getOrderByPhone",
   async ({ phone }, { rejectWithValue }) => {
@@ -65,8 +64,23 @@ export const getOrderById = createAsyncThunk(
 
 const orderSlice = createSlice({
   name: "order",
-  initialState: {},
-  reducers: {
-    
-  }
+  initialState: {
+    order: {},
+  },
+  reducers: {},
+  extraReducers: {
+    [createOrder.pending]: (state, action) => {
+      state.loading = true;
+    },
+    [createOrder.fulfilled]: (state, action) => {
+      state.loading = false;
+      state.order = action.payload;
+    },
+    [createOrder.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.payload.message;
+    },
+  },
 });
+
+export default orderSlice.reducer;

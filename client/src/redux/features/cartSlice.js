@@ -58,6 +58,11 @@ const cartSlice = createSlice({
       state.totalCost -= state.products[productIndex].price;
       state.products.splice(productIndex, 1);
     },
+    removeProductsTotally(state) {
+      state.products.splice(0);
+      state.totalAmount = 0;
+      state.totalCost = 0;
+    },
   },
 });
 
@@ -67,5 +72,6 @@ export const {
   updateTotalAmount,
   updateTotalCost,
   removeProductTotally,
+  removeProductsTotally,
 } = cartSlice.actions;
 export default cartSlice.reducer;

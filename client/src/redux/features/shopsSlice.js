@@ -12,14 +12,17 @@ const shopsSlice = createSlice({
     loading: true,
     shops: [],
     chosenShop: "",
+    chosenShopLocation: "",
   },
   reducers: {
     defineShop(state, action) {
       const shop = state.shops.find((shop) => shop.shopName === action.payload);
       state.chosenShop = shop.shopName;
+      state.chosenShopLocation = shop.shopLocation;
     },
     undefineShop(state) {
       state.chosenShop = "";
+      state.chosenShopLocation = "";
     },
   },
   extraReducers: {

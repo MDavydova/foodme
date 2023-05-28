@@ -52,11 +52,15 @@ function Product({
         .range.find((product) => product.name === name).price;
 
   let priceForCart;
+  let productCost;
 
   if (shop) {
     priceForCart = price;
   } else {
     priceForCart = priceToShow;
+    const product = products.find((product) => product.name === name);
+    productCost = product.amount * priceForCart;
+    console.log(productCost);
   }
 
   const incrementHandler = () => {
@@ -78,9 +82,12 @@ function Product({
   return (
     <li className={className}>
       <div className="product__wrapper">
-        <div className="flex align-center justify-between mb-32">
+        <div className="flex align-center justify-between mb-32 relative">
           <strong className="product__title">{name}</strong>
           <span className="product__price">${priceToShow}</span>
+          {!shop && (
+            <span className="checkout__product-cost">${productCost}</span>
+          )}
         </div>
         <div className="flex align-center justify-between mb-32">
           {shop && (

@@ -2,6 +2,7 @@
   &__image {
     max-width: 250px;
     border-radius: 8px;
+    margin-right: 15px;
 
     img {
       width: 100%;
@@ -26,7 +27,6 @@
 
   &__buttons {
     gap: 15px;
-    margin-left: 10px;
     input:read-only {
       width: 10px;
       text-align: center;

@@ -1,14 +1,36 @@
 .checkout {
   &__products {
+    &-list {
+      margin: 0 0 30px;
+    }
   }
   &__product {
     margin: 10px 0;
+    &-cost {
+      position: absolute;
+      right: 70px;
+      font-size: 18px;
+      padding: 5px;
+      border: 1px solid rgba(0, 0, 0, 0.64);
+      border-radius: 8px;
+    }
   }
   &__total-price {
+    margin: 0 0 30px;
+    font-size: 32px;
+    font-weight: 500;
+
+    span {
+      color: green;
+      font-weight: 600;
+    }
   }
 
   &__products-item {
-    margin: 10px 0;
-    background-color: beige;
+    padding: 32px 32px 0px;
+    border: 1px solid black;
+    &:not(:last-child) {
+      margin: 0 0 20px;
+    }
   }
 }

@@ -101,17 +101,17 @@ export const products = [
 export const shops = [
   {
     shopName: "Hayastan",
-    shopLocation: "",
+    shopLocation: "Kiev",
     range: [products[10], products[9], products[0], products[1]],
   },
   {
     shopName: "Dimukache",
-    shopLocation: "",
+    shopLocation: "Kharkiv",
     range: [products[5], products[6], products[8], products[2]],
   },
   {
     shopName: "Kievtown",
-    shopLocation: "",
+    shopLocation: "Lviv",
     range: [products[7], products[3], products[4]],
   },
 ];

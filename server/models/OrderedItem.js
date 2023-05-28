@@ -8,6 +8,9 @@ const OrderedItemSchema = new mongoose.Schema({
   productName: {
     type: String,
   },
+  productPrice: {
+    type: Number,
+  },
 });
 
 export default mongoose.model("OrderedItemModel", OrderedItemSchema);

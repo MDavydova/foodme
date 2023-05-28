@@ -17,7 +17,7 @@ const OrderSchema = new mongoose.Schema(
     shopLocation: {
       type: String,
     },
-    userLocation: {
+    address: {
       type: String,
     },
     phone: {

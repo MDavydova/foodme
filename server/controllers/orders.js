@@ -58,7 +58,7 @@ export const getOrderById = async (req, res) => {
     const order = await OrderModel.findOne({ id });
 
     if (!order) {
-      return res.json({ message: `Order with ${id} id doesn't exist` });
+      return res.json({});
     }
 
     res.status(201).json(order);

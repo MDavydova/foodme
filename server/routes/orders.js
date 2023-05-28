@@ -15,8 +15,8 @@ import {
 router.post("/", upload.none(), createOrder);
 router.delete("/:id", deleteOrder);
 router.patch("/:id", upload.none(), updateProductAmount);
-router.get("/getOrderByEmail", upload.none(), getOrderByEmail);
-router.get("/getOrderByPhone", upload.none(), getOrderByPhone);
-router.get("/getOrderById", upload.none(), getOrderById);
+router.post("/getOrderByEmail", upload.none(), getOrderByEmail);
+router.post("/getOrderByPhone", upload.none(), getOrderByPhone);
+router.post("/getOrderById", upload.none(), getOrderById);
 
 export default router;

@@ -17,6 +17,7 @@
     "react-router-redux": "^4.0.8",
     "react-scripts": "5.0.1",
     "reactstrap": "^9.1.10",
+    "reactstrap-formik": "^1.0.9",
     "sass": "^1.62.1",
     "web-vitals": "^2.1.4",
     "yup": "0.32.11",

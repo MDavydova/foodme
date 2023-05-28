@@ -29,6 +29,7 @@ function CheckoutFoodBox() {
       <p className="checkout__total-price">
         Total: <span>${totalCost}</span>
       </p>
+      <hr />
     </div>
   );
 }

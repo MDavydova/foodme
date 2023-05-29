@@ -12,8 +12,6 @@ import path from "path";
 
 import { fileURLToPath } from "url";
 
-const { API_URL } = process.env;
-
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
@@ -24,23 +22,14 @@ dotenv.config();
 app.use(morgan("dev"));
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
-app.use(express.static("client/build"));
+
 app.use(cors());
 app.use("/order", orderRouter); // http://localhost:5000/order
 
 app.get("/shops", upload.none(), (req, res) => {
   res.send(shops);
 });
-/*
-app.get("/", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
-});
 
-*/
-
-app.get("/", (req, res) => {
-  res.render("index.html", { API_URL });
-});
 const port = process.env.PORT || 5000;
 
 mongoose

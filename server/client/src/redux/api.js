@@ -1,6 +1,11 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: process.env.REACT_APP_API_URL });
+const API_URL =
+  process.env.NODE_ENV === "production"
+    ? window.API_URL
+    : process.env.REACT_APP_API_URL;
+
+const API = axios.create({ baseURL: API_URL });
 
 export const createOrder = (orderData) => API.post("/order", orderData);
 export const deleteOrder = (id) => API.delete(`/order/${id}`);

@@ -9,6 +9,10 @@
 
   &__logo {
     font-size: 32px;
+
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
   }
 
   &__cart-box {

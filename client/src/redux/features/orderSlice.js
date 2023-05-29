@@ -45,7 +45,11 @@ const orderSlice = createSlice({
     order: {},
     error: "",
   },
-  reducers: {},
+  reducers: {
+    makeOrderEmpty(state) {
+      state.order = {};
+    },
+  },
   extraReducers: {
     [getOrderByKey.fulfilled]: (state, action) => {
       state.order = action.payload;
@@ -57,5 +61,7 @@ const orderSlice = createSlice({
     },
   },
 });
+
+export const { makeOrderEmpty } = orderSlice.actions;
 
 export default orderSlice.reducer;

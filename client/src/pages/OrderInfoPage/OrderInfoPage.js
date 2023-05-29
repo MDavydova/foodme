@@ -1,4 +1,6 @@
 import "../OrderInfoPage/OrderInfoPage.scss";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import {
   Button,
   Input,
@@ -12,7 +14,7 @@ import {
 import * as yup from "yup";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getOrderByKey } from "../../redux/features/orderSlice";
+import { getOrderByKey, makeOrderEmpty } from "../../redux/features/orderSlice";
 import { Formik } from "formik";
 
 const formSchema = yup.object().shape({
@@ -29,6 +31,12 @@ function OrderInfoPage({ pageClassName }) {
   const { order, error } = useSelector((state) => ({
     ...state.order,
   }));
+
+  const location = useLocation();
+
+  useEffect(() => {
+    dispatch(makeOrderEmpty());
+  }, [location]);
 
   return (
     <main className={pageClassName}>

@@ -41,7 +41,11 @@ function Shop({ shopName, shopLocation, range, className }) {
   ));
 
   return (
-    <li className={`${className} ${isShopChosen ? "disabled" : ""}`}>
+    <li
+      className={`${className} ${isShopChosen ? "disabled" : ""} ${
+        chosenShop === shopName ? "chosen-shop" : ""
+      }`}
+    >
       <div className="shop__wrapper">
         <strong className="shop__name">{shopName}</strong>
         <ul className="shop__products-list">{productsList}</ul>

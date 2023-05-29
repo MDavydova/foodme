@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { createOrder } from "../../redux/features/orderSlice";
 import { removeProductsTotally } from "../../redux/features/cartSlice";
+import { undefineShop } from "../../redux/features/shopsSlice";
 
 import {
   Button,
@@ -95,6 +96,7 @@ function CheckoutForm() {
               dispatch(createOrder(values));
               resetForm();
               dispatch(removeProductsTotally());
+              dispatch(undefineShop());
               setSubmitting(false);
               navigate("/orderinfo");
             }

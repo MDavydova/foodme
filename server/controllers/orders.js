@@ -51,48 +51,28 @@ export const updateProductAmount = async (req, res) => {
   }
 };
 
-export const getOrderById = async (req, res) => {
-  const id = req.body.id;
+export const getOrderByKey = async (req, res) => {
+  const searchWord = req.body.searchWord;
 
   try {
-    const order = await OrderModel.findOne({ id });
+    const orderId = await OrderModel.findOne({ id: searchWord });
 
-    if (!order) {
-      return res.json({});
+    if (orderId) {
+      return res.status(201).json(orderId);
     }
 
-    res.status(201).json(order);
-  } catch (err) {
-    res.status(500).json({ message: "Something went wrong" });
-  }
-};
+    const orderEmail = await OrderModel.findOne({ email: searchWord });
 
-export const getOrderByEmail = async (req, res) => {
-  const email = req.body.email;
-  try {
-    const order = await OrderModel.findOne({ email });
-
-    if (!order) {
-      return res.json({ message: `Order with ${email} id doesn't exist` });
+    if (orderEmail) {
+      return res.status(201).json(orderEmail);
     }
 
-    res.status(201).json(order);
-  } catch (err) {
-    res.status(500).json({ message: "Something went wrong" });
-  }
-};
+    const orderPhone = await OrderModel.findOne({ phone: Number(searchWord) });
 
-export const getOrderByPhone = async (req, res) => {
-  const phone = req.body.phone;
-  try {
-    const order = await OrderModel.findOne({ phone });
-
-    if (!order) {
-      return res.json({ message: `Order with ${phone} phone doesn't exist` });
+    if (orderPhone) {
+      return res.status(201).json(orderPhone);
     }
-
-    res.status(201).json(order);
   } catch (err) {
-    res.status(500).json({ message: "Something went wrong" });
+    res.status(500).json({ message: `No order found by ${searchWord}` });
   }
 };

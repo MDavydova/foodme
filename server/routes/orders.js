@@ -7,16 +7,12 @@ import {
   createOrder,
   deleteOrder,
   updateProductAmount,
-  getOrderById,
-  getOrderByEmail,
-  getOrderByPhone,
+  getOrderByKey,
 } from "../controllers/orders.js";
 
 router.post("/", upload.none(), createOrder);
 router.delete("/:id", deleteOrder);
 router.patch("/:id", upload.none(), updateProductAmount);
-router.post("/getOrderByEmail", upload.none(), getOrderByEmail);
-router.post("/getOrderByPhone", upload.none(), getOrderByPhone);
-router.post("/getOrderById", upload.none(), getOrderById);
+router.post("/getOrderByKey", upload.none(), getOrderByKey);
 
 export default router;

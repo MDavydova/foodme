@@ -36,7 +36,12 @@ app.get("/", (req, res) => {
 const port = process.env.PORT || 5000;
 
 mongoose
-  .connect(process.env.MONGODB_URL)
+  .connect(process.env.MONGODB_URL, {
+    //must add in order to not get any error masseges:
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+  })
   .then(() => {
     app.listen(port, () => console.log(`Server running on port ${port}`));
   })

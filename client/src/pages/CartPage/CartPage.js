@@ -15,9 +15,7 @@ function CartPage({ pageClassName }) {
               <h2>Food Info</h2>
               <CheckoutFoodBox />
             </div>
-            <div className="cart__box">
-              <h2>Shop Info</h2>
-            </div>
+            <div className="cart__box"></div>
           </div>
           <div className="cart__col">
             <h2>Your Info</h2>

@@ -1,0 +1,33 @@
+.form-label {
+  margin: 0;
+}
+.error {
+  border: 2px solid #ff6565;
+}
+
+.error-message {
+  color: #ff6565;
+  padding: 0;
+  position: absolute;
+  font-size: 0.8em;
+  bottom: -25px;
+}
+
+.order-info {
+  form {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+
+    .mb-3 {
+      margin: 0 !important;
+    }
+
+    .row {
+      flex-grow: 1;
+    }
+  }
+
+  .form-btn {
+  }
+}

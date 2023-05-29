@@ -1,0 +1,16 @@
+.cart {
+  &__wrapper {
+    gap: 50px;
+  }
+  &__col {
+    width: 50%;
+  }
+
+  h2 {
+    margin: 0 0 24px;
+  }
+
+  form {
+    flex-direction: column;
+  }
+}

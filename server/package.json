@@ -1,6 +1,10 @@
 {
-  "name": "foodme-server",
+  "name": "foodme",
   "version": "1.0.0",
+  "engines": {
+    "npm": "9.6.6",
+    "node": "v14.19.3"
+  },
   "description": "",
   "main": "index.js",
   "type": "module",

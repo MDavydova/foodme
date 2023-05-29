@@ -4,10 +4,5 @@ const API = axios.create({ baseURL: process.env.REACT_APP_API_URL });
 
 export const createOrder = (orderData) => API.post("/order", orderData);
 export const deleteOrder = (id) => API.delete(`/order/${id}`);
-export const getOrderByEmail = (email) =>
-  API.post("/order/getOrderByEmail", email);
-export const getOrderById = (id) => API.post("/order/getOrderById", id);
-export const getOrderByPhone = (phone) =>
-  API.post("/order/getOrderByPhone", phone);
-
+export const getOrderByKey = (data) => API.post("/order/getOrderByKey", data);
 export const getShops = () => API.get("/shops");

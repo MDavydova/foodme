@@ -11,20 +11,23 @@ function Shop({ shopName, shopLocation, range, className }) {
     ...state.shops,
   }));
 
-  const { total } = useSelector((state) => ({
+  const { totalAmount } = useSelector((state) => ({
     ...state.cart,
   }));
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (total === 0) dispatch(undefineShop());
-    setShopChosen(false);
-  }, [total]);
+    if (totalAmount === 0) {
+      dispatch(undefineShop());
+      setShopChosen(false);
+    }
+  }, [totalAmount]);
 
   useEffect(() => {
-    if (chosenShop != "")
+    if (chosenShop != "") {
       chosenShop === shopName ? setShopChosen(false) : setShopChosen(true);
+    }
   }, [chosenShop]);
 
   const productsList = range.map((product, index) => (

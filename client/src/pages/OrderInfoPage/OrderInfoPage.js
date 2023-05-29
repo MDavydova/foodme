@@ -12,11 +12,7 @@ import {
 import * as yup from "yup";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  getOrderByPhone,
-  getOrderById,
-  getOrderByEmail,
-} from "../../redux/features/orderSlice";
+import { getOrderByKey } from "../../redux/features/orderSlice";
 import { Formik } from "formik";
 
 const formSchema = yup.object().shape({
@@ -30,7 +26,7 @@ const formSchema = yup.object().shape({
 function OrderInfoPage({ pageClassName }) {
   const dispatch = useDispatch();
 
-  const { order } = useSelector((state) => ({
+  const { order, error } = useSelector((state) => ({
     ...state.order,
   }));
 
@@ -45,13 +41,11 @@ function OrderInfoPage({ pageClassName }) {
           validationSchema={formSchema}
           onSubmit={(values, { setSubmitting, resetForm }) => {
             setSubmitting(true);
-            setTimeout(() => {
-              const formData = new FormData();
-              formData.append("id", values.searchOrder);
-              dispatch(getOrderById(formData));
-              resetForm();
-              setSubmitting(false);
-            }, 500);
+            const formData = new FormData();
+            formData.append("searchWord", values.searchOrder);
+            dispatch(getOrderByKey(formData));
+            resetForm();
+            setSubmitting(false);
           }}
         >
           {({
@@ -104,6 +98,63 @@ function OrderInfoPage({ pageClassName }) {
             </Form>
           )}
         </Formik>
+        {order.hasOwnProperty("id") && (
+          <>
+            <h2 style={{ textAlign: "center", marginTop: "50px" }}>
+              Here is your order info:
+            </h2>
+            <div className="flex flex-column">
+              <p>
+                Your address:{" "}
+                <span style={{ fontWeight: "bold" }}>{order.address}</span>
+              </p>
+              <p>
+                Your order id:{" "}
+                <span style={{ fontWeight: "bold" }}>{order.id}</span>
+              </p>
+              <p>
+                Shop name:{" "}
+                <span style={{ fontWeight: "bold" }}>{order.shop}</span>
+              </p>
+              <p>
+                Your phone number:{" "}
+                <span style={{ fontWeight: "bold" }}>+{order.phone}</span>
+              </p>
+              <p>
+                Total delivery cost :{" "}
+                <span style={{ fontWeight: "bold" }}>${order.cost}</span>
+              </p>
+              <span style={{ marginBottom: "10px" }}> You ordered:</span>
+              <ol>
+                {order.orderedItems.map((product, index) => (
+                  <li key={index}>
+                    <p>
+                      {" "}
+                      <span
+                        style={{
+                          textTransform: "capitalize",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {""}
+                        {product.productName}
+                      </span>
+                      {" - "}
+                      <span style={{ fontWeight: "bold" }}>
+                        {product.productQuantity}{" "}
+                      </span>
+                      items
+                    </p>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </>
+        )}
+
+        {!(error === "") && (
+          <h2 style={{ textAlign: "center", marginTop: "50px" }}>{error}</h2>
+        )}
       </div>
     </main>
   );

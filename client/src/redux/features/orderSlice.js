@@ -25,35 +25,13 @@ export const deleteOrder = createAsyncThunk(
     }
   }
 );
-export const getOrderByPhone = createAsyncThunk(
-  "order/getOrderByPhone",
-  async ({ phone }, { rejectWithValue }) => {
-    try {
-      const response = await api.getOrderByPhone(phone);
 
-      return response.data;
-    } catch (err) {
-      return rejectWithValue(err.response.data);
-    }
-  }
-);
-export const getOrderByEmail = createAsyncThunk(
-  "order/getOrderByEmail",
-  async ({ email }, { rejectWithValue }) => {
-    try {
-      const response = await api.getOrderByEmail(email);
-
-      return response.data;
-    } catch (err) {
-      return rejectWithValue(err.response.data);
-    }
-  }
-);
-export const getOrderById = createAsyncThunk(
-  "order/getOrderById",
+export const getOrderByKey = createAsyncThunk(
+  "order/getOrderByKey",
   async (obj, { rejectWithValue }) => {
     try {
-      const response = await api.getOrderById(obj);
+      const response = await api.getOrderByKey(obj);
+
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response.data);
@@ -65,14 +43,17 @@ const orderSlice = createSlice({
   name: "order",
   initialState: {
     order: {},
+    error: "",
   },
   reducers: {},
   extraReducers: {
-    [createOrder.fulfilled]: (state, action) => {
+    [getOrderByKey.fulfilled]: (state, action) => {
       state.order = action.payload;
+      state.error = "";
     },
-    [getOrderById.fulfilled]: (state, action) => {
-      state.order = action.payload;
+    [getOrderByKey.rejected]: (state, action) => {
+      state.order = {};
+      state.error = action.payload.message;
     },
   },
 });

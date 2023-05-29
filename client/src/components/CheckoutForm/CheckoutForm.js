@@ -96,7 +96,7 @@ function CheckoutForm() {
               resetForm();
               dispatch(removeProductsTotally());
               setSubmitting(false);
-              navigate("/order");
+              navigate("/orderinfo");
             }
           }, 500);
         }}

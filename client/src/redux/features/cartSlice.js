@@ -47,14 +47,14 @@ const cartSlice = createSlice({
       const product = {
         name: action.payload.name,
         amount: 1,
-        price: action.payload.priceForCart,
+        price: action.payload.priceToShow,
         shopName: action.payload.shopName,
       };
       /* eslint-disable */
       productIndex === -1
         ? state.products.push(product)
         : (state.products[productIndex].amount++,
-          (state.products[productIndex].price += action.payload.priceForCart));
+          (state.products[productIndex].price += action.payload.priceToShow));
 
       setProductsFunc(state.products.map((item) => item));
     },
@@ -66,7 +66,7 @@ const cartSlice = createSlice({
       state.products[productIndex].amount === 0
         ? state.products.splice(productIndex, 1)
         : (state.products[productIndex].amount--,
-          (state.products[productIndex].price -= action.payload.priceForCart));
+          (state.products[productIndex].price -= action.payload.priceToShow));
 
       if (state.products[productIndex].amount >= 1) {
         setProductsFunc(state.products.map((item) => item));

@@ -9,6 +9,7 @@ import {
   updateTotalCost,
   removeProductTotally,
 } from "../../redux/features/cartSlice";
+import { getShops } from "../../redux/features/shopsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function Product({
@@ -28,6 +29,10 @@ function Product({
     ...state.shops,
   }));
 
+  useEffect(() => {
+    dispatch(getShops());
+  }, []);
+
   let initialProductAmount = 0;
   let initialButtonDisabled = true;
 
@@ -40,7 +45,6 @@ function Product({
     if (productIndex !== -1) {
       initialProductAmount = cartItemsFromStorage[productIndex].amount;
       initialButtonDisabled = initialProductAmount > 0 ? false : true;
-      console.log(initialProductAmount, initialButtonDisabled, name);
     }
   }
 
@@ -60,34 +64,29 @@ function Product({
     }
   }, [products]);
 
-  let priceToShow = shop
-    ? price
-    : shops
-        .find((shop) => shop.shopName === chosenShop)
-        .range.find((product) => product.name === name).price;
-
-  let priceForCart;
+  let priceToShow;
   let productCost;
 
   if (shop) {
-    priceForCart = price;
+    priceToShow = price;
   } else {
-    priceForCart = priceToShow;
-    const product = products.find((product) => product.name === name);
-    productCost = product.amount * priceForCart;
+    priceToShow = shops
+      .find((shop) => shop.shopName === chosenShop)
+      .range.find((product) => product.name === name).price;
+
+    productCost = productAmount * priceToShow;
   }
 
   const incrementHandler = () => {
     productAmount >= 0 && setButtonDisabled(false);
-    console.log(productAmount, name);
     shop && dispatch(defineShop(shopName));
-    dispatch(addProduct({ name, priceForCart, shopName }));
+    dispatch(addProduct({ name, priceToShow, shopName }));
   };
 
   const decrementHandler = () => {
     productAmount <= 1 && setButtonDisabled(true);
     if (shop && productAmount > 0) dispatch(defineShop(shopName));
-    dispatch(removeProduct({ name, priceForCart }));
+    dispatch(removeProduct({ name, priceToShow }));
   };
 
   const removeProductHandler = () => {

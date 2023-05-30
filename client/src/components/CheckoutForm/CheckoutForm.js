@@ -99,6 +99,7 @@ function CheckoutForm() {
               dispatch(undefineShop());
               setSubmitting(false);
               navigate("/orderinfo");
+              localStorage.clear();
             }
           }, 500);
         }}

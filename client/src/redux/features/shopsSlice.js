@@ -6,23 +6,43 @@ export const getShops = createAsyncThunk("shops/getShops", async () => {
   return response;
 });
 
+const setChosenShop = (chosenShop, chosenShopLocation) => {
+  localStorage.setItem("chosenShop", JSON.stringify(chosenShop));
+  localStorage.setItem(
+    "chosenShopLocation",
+    JSON.stringify(chosenShopLocation)
+  );
+};
+
+const chosenShop =
+  localStorage.getItem("chosenShop") !== null
+    ? JSON.parse(localStorage.getItem("chosenShop"))
+    : "";
+
+const chosenShopLocation =
+  localStorage.getItem("chosenShopLocation") !== null
+    ? JSON.parse(localStorage.getItem("chosenShopLocation"))
+    : "";
+
 const shopsSlice = createSlice({
   name: "shops",
   initialState: {
     loading: true,
     shops: [],
-    chosenShop: "",
-    chosenShopLocation: "",
+    chosenShop: chosenShop,
+    chosenShopLocation: chosenShopLocation,
   },
   reducers: {
     defineShop(state, action) {
       const shop = state.shops.find((shop) => shop.shopName === action.payload);
       state.chosenShop = shop.shopName;
       state.chosenShopLocation = shop.shopLocation;
+      setChosenShop(state.chosenShop, state.chosenShopLocation);
     },
     undefineShop(state) {
       state.chosenShop = "";
       state.chosenShopLocation = "";
+      setChosenShop(state.chosenShop, state.chosenShopLocation);
     },
   },
   extraReducers: {

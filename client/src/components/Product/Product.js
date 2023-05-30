@@ -28,15 +28,30 @@ function Product({
     ...state.shops,
   }));
 
-  const [productAmount, setProductAmount] = useState(0);
+  let initialProductAmount = 0;
+  let initialButtonDisabled = true;
 
-  const [buttonDisabled, setButtonDisabled] = useState(shop ? true : false);
+  if (localStorage.getItem("products") !== null) {
+    const cartItemsFromStorage = JSON.parse(localStorage.getItem("products"));
+    const productIndex = cartItemsFromStorage.findIndex(
+      (product) => product.name === name
+    );
+
+    if (productIndex !== -1) {
+      initialProductAmount = cartItemsFromStorage[productIndex].amount;
+      initialButtonDisabled = initialProductAmount > 0 ? false : true;
+      console.log(initialProductAmount, initialButtonDisabled, name);
+    }
+  }
+
+  const [productAmount, setProductAmount] = useState(initialProductAmount);
+
+  const [buttonDisabled, setButtonDisabled] = useState(initialButtonDisabled);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     const productIndex = products.findIndex((product) => product.name === name);
-
     setProductAmount(productIndex === -1 ? 0 : products[productIndex].amount);
 
     if (products.length > 0) {
@@ -64,13 +79,14 @@ function Product({
 
   const incrementHandler = () => {
     productAmount >= 0 && setButtonDisabled(false);
+    console.log(productAmount, name);
     shop && dispatch(defineShop(shopName));
     dispatch(addProduct({ name, priceForCart, shopName }));
   };
 
   const decrementHandler = () => {
-    productAmount === 1 && setButtonDisabled(true);
-    shop && dispatch(defineShop(shopName));
+    productAmount <= 1 && setButtonDisabled(true);
+    if (shop && productAmount > 0) dispatch(defineShop(shopName));
     dispatch(removeProduct({ name, priceForCart }));
   };
 

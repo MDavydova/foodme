@@ -30,7 +30,7 @@ const shopsSlice = createSlice({
       state.loading = true;
     },
     [getShops.fulfilled]: (state, action) => {
-      state.loading = false;
+      state.loading = true;
       state.shops = action.payload.data;
     },
     [getShops.rejected]: (state, action) => {

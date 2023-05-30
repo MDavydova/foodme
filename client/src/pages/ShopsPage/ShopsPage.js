@@ -13,7 +13,7 @@ function ShopsPage({ pageClassName }) {
   const dispatch = useDispatch();
 
   const styles = {
-    margin: "0 auto",
+    margin: "150px auto 50px",
     display: "block",
   };
 

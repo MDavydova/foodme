@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-//localStorage.clear();
-
 const products =
   localStorage.getItem("products") !== null
     ? JSON.parse(localStorage.getItem("products"))

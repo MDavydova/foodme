@@ -14,6 +14,15 @@ const setChosenShop = (chosenShop, chosenShopLocation) => {
   );
 };
 
+const setShops = (shops) => {
+  localStorage.setItem("shops", JSON.stringify(shops));
+};
+
+const shops =
+  localStorage.getItem("shops") !== null
+    ? JSON.parse(localStorage.getItem("shops"))
+    : [];
+
 const chosenShop =
   localStorage.getItem("chosenShop") !== null
     ? JSON.parse(localStorage.getItem("chosenShop"))
@@ -28,7 +37,7 @@ const shopsSlice = createSlice({
   name: "shops",
   initialState: {
     loading: true,
-    shops: [],
+    shops: shops,
     chosenShop: chosenShop,
     chosenShopLocation: chosenShopLocation,
   },
@@ -52,6 +61,7 @@ const shopsSlice = createSlice({
     [getShops.fulfilled]: (state, action) => {
       state.loading = false;
       state.shops = action.payload.data;
+      setShops(action.payload.data);
     },
     [getShops.rejected]: (state, action) => {
       state.loading = false;
